@@ -11,7 +11,7 @@ jobs:
           composer init --name test/test --no-interaction --type=library --stability=dev
           composer config repositories.wpunit-helpers '{"type": "vcs", "url": "https://github.com/pantheon-systems/wpunit-helpers.git"}'
           composer config allow-plugins.pantheon-systems/wpunit-helpers true
-          composer require --dev pantheon-systems/wpunit-helpers:dev-${{ github.head_ref }}
+          composer require --dev -vvv pantheon-systems/wpunit-helpers:dev-${{ github.head_ref }}
       - name: Validate that bin files were copied
         run: |
           set -e
