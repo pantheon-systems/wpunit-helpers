@@ -8,7 +8,7 @@ jobs:
       - name: Setup barebones project
         run: |
           mkdir test_proj && cd test_proj
-          composer init --name test/test --no-interaction --type=library --stability=dev --prefer-dist
+          composer init --name test/test --no-interaction --type=library --stability=dev
           composer config repositories.wpunit-helpers '{"type": "vcs", "url": "https://github.com/pantheon-systems/wpunit-helpers.git"}'
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           composer require --dev pantheon-systems/wpunit-helpers:dev-$BRANCH_NAME
