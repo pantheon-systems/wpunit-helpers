@@ -1,0 +1,24 @@
+{
+    "name": "pantheon-systems/wpunit-helpers",
+    "description": "Unified scripts for installing and running automated WP Unit Tests.",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pantheon",
+            "email": "noreply@pantheon.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer-plugin-api": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pantheon\\WPUnitHelpers\\": "src/"
+        }
+    },
+    "extra": {
+        "class": "Pantheon\\WPUnitHelpers\\Plugin"
+    }
+}
