@@ -15,8 +15,8 @@ jobs:
       - name: Validate that bin files were copied
         run: |
           cd ${{ github.workspace }}/test_proj
-          test -d bin || echo "❌ bin directory not found" >&2 && exit 1
-          test -f bin/install-wp-tests.sh || echo "❌ bin/install-wp-tests.sh not found" >&2 && exit 1
-          test -f bin/install-local-tests.sh || echo "❌ bin/install-local-tests.sh not found" >&2 && exit 1
-          test -f bin/phpunit-test.sh || echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1
+          test -d bin || $(echo "❌ bin directory not found" >&2 && exit 1)
+          test -f bin/install-wp-tests.sh || $(echo "❌ bin/install-wp-tests.sh not found" >&2 && exit 1)
+          test -f bin/install-local-tests.sh || $(echo "❌ bin/install-local-tests.sh not found" >&2 && exit 1)
+          test -f bin/phpunit-test.sh || $(echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1)
           echo "✅ All bin files found"
