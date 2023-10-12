@@ -88,7 +88,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             $io->write("Done copying files into /bin.");
             $io->write("You can now add the following to your composer.json file: \n $composerIncludes");
         } else {
-            $io->write("/bin files are already up to date");
+            $io->write("/bin files are up to date");
         }
     }
 }
