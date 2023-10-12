@@ -35,11 +35,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             'post-install-cmd' => ['copyBinDirectory'],
             'post-update-cmd' => ['copyBinDirectory'],
         );
-    } 
+    }
 
     public function copyBinDirectory()
-    {   
-        $io = $this->io;     
+    {
+        $io = $this->io;
         $vendorDir = $this->composer->getConfig()->get('vendor-dir');
         $binDir = $vendorDir . '/pantheon-systems/wpunit-helpers/bin';
         $targetDir = dirname($vendorDir) . '/bin';
@@ -82,12 +82,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             \"phpunit\": \"phpunit --do-not-cache-result\",
             \"test\": \"@phpunit\",
             \"test:install\": \"bin/install-local-tests.sh --no-db\",
-            \"test:install:withdb\": \"bin/install-local-tests.sh\"}";
+            \"test:install:withdb\": \"bin/install-local-tests.sh\"
+        }";
     
         if (!$filesAreIdentical) {
-            $io->write("Done copying files into /bin. You can now add the following to your composer.json file: \n $composerIncludes");
+            $io->write("Done copying files into /bin.");
+            $io->write("You can now add the following to your composer.json file: \n $composerIncludes");
         } else {
-            $io->write("/bin files are already up to date");
+            $io->write("/bin files are up to date");
         }
     }
 }
