@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "composer-plugin-api": "^2.3"
+        "composer-plugin-api": "^2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7"
