@@ -13,8 +13,36 @@ download() {
     fi  
 }
 
-setup_wp_nightly() {
-	download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
+download_wp() {
+	TMPDIR="/tmp"
+	WP_VERSION="latest"
+
+	for i in "$@"; do
+		case $i in
+			--wpversion=*)
+			WP_VERSION="${i#*=}"
+			shift
+			;;
+			--tmpdir=*)
+			TMPDIR="${i#*=}"
+			shift
+			;;
+			*)
+			# unknown option
+			echo "Unknown option: $i. Usage: download_wp --wpversion=latest --tmpdir=/tmp"
+			exit 1
+			;;
+		esac
+
+	# Check for WP-CLI. If the wp command does not exist, exit.
+	if ! which wp &> /dev/null; then
+		echo "WP-CLI is not installed. Exiting."
+		exit 1
+	fi
+
+	echo "Downloading WordPress version: ${WP_VERSION}"
+	wp core download --version="$WP_VERSION" --path="${TMPDIR}/wordpress"
+}
 	echo "Creating wp-config.php"
 	wp config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=127.0.0.1 --dbprefix=wptests_ --path="/tmp/wordpress"
 	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="/tmp/wordpress"
