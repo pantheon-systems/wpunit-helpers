@@ -3,11 +3,14 @@
 set -e
 
 download() {
-    if [ "$(which curl)" ]; then
-        curl -s "$1" > "$2";
-    elif [ "$(which wget)" ]; then
-        wget -nv -O "$2" "$1"
-    fi
+    if which curl &> /dev/null; then  
+        curl -s "$1" > "$2";  
+    elif which wget &> /dev/null; then  
+        wget -nv -O "$2" "$1"  
+    else  
+        echo "Missing curl or wget" >&2  
+        exit 1  
+    fi  
 }
 
 setup_wp_nightly() {
