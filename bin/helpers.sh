@@ -43,9 +43,62 @@ download_wp() {
 	echo "Downloading WordPress version: ${WP_VERSION}"
 	wp core download --version="$WP_VERSION" --path="${TMPDIR}/wordpress"
 }
+
+setup_wp() {
+	# Initialize variables with default values
+	TMPDIR="/tmp"
+	DB_NAME="wordpress_test"
+	DB_USER="root"
+	DB_PASS="root"
+	DB_HOST="127.0.0.1"
+	WP_VERSION=${WP_VERSION:-latest}
+	SKIP_DB=""
+
+	# Parse command-line arguments
+	for i in "$@"
+	do
+	case $i in
+		--dbname=*)
+		DB_NAME="${i#*=}"
+		shift
+		;;
+		--dbuser=*)
+		DB_USER="${i#*=}"
+		shift
+		;;
+		--dbpass=*)
+		DB_PASS="${i#*=}"
+		shift
+		;;
+		--dbhost=*)
+		DB_HOST="${i#*=}"
+		shift
+		;;
+		--wpversion=*)
+		WP_VERSION="${i#*=}"
+		shift
+		;;
+		--no-db)
+		SKIP_DB="true"
+		shift
+		;;
+		--tmpdir=*)
+		TMPDIR="${i#*=}"
+		shift
+		;;
+		*)
+		# unknown option
+		echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --wpversion=latest --tmpdir=/tmp --no-db"
+		exit 1
+		;;
+	esac
+	done
+
+	download http://api.wordpress.org/core/version-check/1.7/ "$TMPDIR"/wp-latest.json	
 	echo "Creating wp-config.php"
-	wp config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=127.0.0.1 --dbprefix=wptests_ --path="/tmp/wordpress"
-	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="/tmp/wordpress"
+	wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --dbprefix="wptests_" --path="${TMPDIR}/wordpress"
+	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="${TMPDIR}/wordpress"
+}
 	# If nightly version of WP is installed, install latest Gutenberg plugin and activate it.
 	echo "Installing Gutenberg plugin"
 	wp plugin install gutenberg --activate --path="/tmp/wordpress"
