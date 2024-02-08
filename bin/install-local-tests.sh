@@ -4,9 +4,14 @@ set -e
 # shellcheck disable=SC1091
 source "$(dirname "$0")/helpers.sh"
 
-# Request version.
-echo "Which version of WordPress would you like to test against? (latest, nightly, or a version number) Leave blank for latest."
-read -r WP_VERSION
+# Check if a version was provided as an argument.
+if [ $# -gt 0 ]; then
+  WP_VERSION=$1
+else
+  # Request version.
+  echo "Which version of WordPress would you like to test against? (latest, nightly, or a version number) Leave blank for latest."
+  read -r WP_VERSION
+fi
 
 # Initialize variables with default values
 TMPDIR="/tmp"
