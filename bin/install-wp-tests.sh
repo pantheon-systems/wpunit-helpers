@@ -44,7 +44,6 @@ fi
 
 set -e
 
-echo "Installing WordPress test suite into ${TMPDIR}"
 install_wp
 install_test_suite
 install_db
