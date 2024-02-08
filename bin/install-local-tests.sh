@@ -1,20 +1,21 @@
 #!/bin/bash
 set -e
 
+# shellcheck disable=SC1091
+source "$(dirname "$0")/helpers.sh"
+
+# Request version.
+echo "Which version of WordPress would you like to test against? (latest, nightly, or a version number) Leave blank for latest."
+read -r WP_VERSION
+
 # Initialize variables with default values
 TMPDIR="/tmp"
 DB_NAME="wordpress_test"
 DB_USER="root"
 DB_PASS=""
 DB_HOST="127.0.0.1"
-WP_VERSION="latest"
+WP_VERSION=${WP_VERSION:-latest}
 SKIP_DB=""
-
-# Display usage information
-usage() {
-  echo "Usage:"
-  echo "./install-local-tests.sh [--dbname=wordpress_test] [--dbuser=root] [--dbpass=''] [--dbhost=127.0.0.1] [--wpversion=latest] [--no-db]"
-}
 
 # Parse command-line arguments
 for i in "$@"
@@ -46,7 +47,7 @@ case $i in
     ;;
     *)
     # unknown option
-    usage
+    usage "./install-local-tests.sh"
     exit 1
     ;;
 esac
