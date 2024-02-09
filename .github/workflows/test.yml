@@ -43,6 +43,10 @@ jobs:
         shell: bash
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
+          DB_NAME: wordpress_test
+          DB_USER: root
+          DB_PASS: root
+          DB_HOST: 127.0.0.1
         run: ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
       - name: Run PHPUnit Test Install
         run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
