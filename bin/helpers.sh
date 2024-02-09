@@ -116,7 +116,24 @@ setup_wp_nightly() {
 	wp plugin install gutenberg --activate --path="$WP_DIR"
 }
 
+get_wp_version_num() {
+	WP_VERSION=${WP_VERSION:-latest}
+	WP_VERSION_JSON="/tmp/wp-latest.json"
+
+	# Get latest version from JSON if latest was passed.
+	if [ "$WP_VERSION" == "latest" ]; then
+		WP_VERSION=$(grep -o '"version":"[^"]*' "$WP_VERSION_JSON" | cut -d'"' -f4)
+	fi
+
+	if [ "$WP_VERSION" == "nightly" ]; then
+		WP_VERSION="trunk"
+	fi
+
+	echo "$WP_VERSION"
+}
+
 install_test_suite() {
+	WP_VERSION=$(get_wp_version_num "$@")
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i .bak'
