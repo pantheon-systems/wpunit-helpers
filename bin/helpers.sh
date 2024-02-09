@@ -180,6 +180,16 @@ install_db() {
 	mysqladmin create "$DB_NAME" --user="$DB_USER" --password="$DB_PASS""$EXTRA"
 }
 
+cleanup() {
+	WPDIR=${1:-"/tmp/wordpress"}
+	WP_TESTS_DIR=${2:-"/tmp/wordpress-tests-lib"}
+	WP_VERSION_JSON=${3:-"/tmp/wp-latest.json"}
+
+	rm -rf "$WPDIR"
+	rm -rf "$WP_TESTS_DIR"
+	rm -f "$WP_VERSION_JSON"
+}
+
 # Display usage information
 usage() {
   echo "Usage:"
