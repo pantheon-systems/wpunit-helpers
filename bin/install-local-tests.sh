@@ -14,9 +14,8 @@ WP_VERSION=${WP_VERSION:-latest}
 SKIP_DB=""
 
 # Parse command-line arguments
-for i in "$@"
-do
-case $i in
+for i in "$@"; do
+  case $i in
     --dbname=*)
     DB_NAME="${i#*=}"
     shift
