@@ -19,11 +19,9 @@ download_wp() {
 		case $i in
 			--version=*)
 			WP_VERSION="${i#*=}"
-			shift
 			;;
 			--tmpdir=*)
 			TMPDIR="${i#*=}"
-			shift
 			;;
 			*)
 			# unknown option
@@ -57,27 +55,21 @@ setup_wp() {
 		case $i in
 			--dbname=*)
 			DB_NAME="${i#*=}"
-			shift
 			;;
 			--dbuser=*)
 			DB_USER="${i#*=}"
-			shift
 			;;
 			--dbpass=*)
 			DB_PASS="${i#*=}"
-			shift
 			;;
 			--dbhost=*)
 			DB_HOST="${i#*=}"
-			shift
 			;;
 			--version=*)
 			WP_VERSION="${i#*=}"
-			shift
 			;;
 			--tmpdir=*)
 			TMPDIR="${i#*=}"
-			shift
 			;;
 			*)
 			# unknown option
@@ -100,7 +92,6 @@ setup_wp_nightly() {
 		case $i in
 			--wpdir=*)
 			WP_DIR="${i#*=}"
-			shift
 			;;
 			*)
 			# unknown option
@@ -124,11 +115,9 @@ get_wp_version_num() {
 		case $i in
 			--version=*)
 			WP_VERSION="${i#*=}"
-			shift
 			;;
 			--tmpdir=*)
 			TMPDIR="${i#*=}"
-			shift
 			;;
 			*)
 			# unknown option
