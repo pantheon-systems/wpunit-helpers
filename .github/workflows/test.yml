@@ -21,3 +21,13 @@ jobs:
           test -f bin/phpunit-test.sh || (echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1)
           test -f bin/helpers.sh || (echo "❌ bin/helpers.sh not found" >&2 && exit 1)
           echo "✅ All bin files found"
+      - name: Run local install
+        run: |
+          echo "Testing latest install..."
+          mkdir -p ${{ github.workspace }}/local_tests && cd ${{ github.workspace }}/local_tests
+          bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh latest
+          echo "Testing nightly install..."
+          ${{ github.workspace }}/test_proj/bin/install-local-tests.sh nightly --no-db
+      - name: Run PHPUnit Tests
+        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh
+
