@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 download() {
     if which curl &> /dev/null; then  
