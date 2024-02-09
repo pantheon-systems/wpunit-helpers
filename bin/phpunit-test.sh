@@ -24,7 +24,7 @@ rm -rf "$WP_TESTS_DIR" "$WP_CORE_DIR"
 bash "${DIRNAME}/install-wp-tests.sh" wordpress_test root root 127.0.0.1 latest true
 echo '------------------------------------------'
 echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
-WP_MULTISITE=1 composer test --ansi
+WP_MULTISITE=1 composer phpunit --ansi
 
 echo "🧹 Removing files before testing nightly WP..."
 
