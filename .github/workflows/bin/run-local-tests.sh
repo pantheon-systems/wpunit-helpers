@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -ex
-chmod +x "$GITHUB_WORKSPACE"/bin/*.sh
+chmod +x "$GITHUB_WORKSPACE"/test_proj/bin/*.sh
 echo "Testing latest install..."
 mkdir -p "$GITHUB_WORKSPACE"/local_tests
 
@@ -9,9 +9,9 @@ if [ -f "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh ]; then
   echo "install-local-tests.sh exists, proceeding"
 else
   echo "install-local-tests.sh does not exist"
-  ls -la "$GITHUB_WORKSPACE"
   exit 1
 fi
+ls -la "$GITHUB_WORKSPACE"/test_proj/bin
 
 "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir="$GITHUB_WORKSPACE"/local_tests
 
