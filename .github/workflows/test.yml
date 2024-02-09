@@ -28,6 +28,6 @@ jobs:
           bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir=${{ github.workspace }}/local_tests
           echo "Testing nightly install..."
           ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --version=nightly --no-db --tmpdir=${{ github.workspace }}/local_tests
-      - name: Run PHPUnit Tests
+      - name: Run PHPUnit Test Install
         run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
