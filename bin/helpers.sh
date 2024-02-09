@@ -154,7 +154,6 @@ install_db() {
 	DB_NAME=${2:-"wordpress_test"}
 	DB_USER=${3:-"root"}
 	DB_PASS=${4:-""}
-	SKIP_DB=${5:-""}
 
 	if [ "${SKIP_DB_CREATE}" = "true" ]; then
 		return 0
