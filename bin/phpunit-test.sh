@@ -8,30 +8,22 @@ source "$(dirname "$0")/helpers.sh"
 DIRNAME=$(dirname "$0")
 
 echo "🤔 Installing WP Unit tests..."
-bash "${DIRNAME}/install-wp-tests.sh" wordpress_test root root 127.0.0.1 latest
-
-echo "📄 Copying wp-latest.json..."
-cp /tmp/wp-latest.json "${DIRNAME}/../tests/wp-latest.json"
+bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root
 
 echo '------------------------------------------'
 echo "🏃‍♂️ [Run 1]: Running PHPUnit on Single Site"
 composer phpunit --ansi
 
-echo "🧹 Removing files before testing WPMS..."
-rm "${DIRNAME}/../tests/wp-latest.json"
-rm -rf "$WP_TESTS_DIR" "$WP_CORE_DIR"
-
-bash "${DIRNAME}/install-wp-tests.sh" wordpress_test root root 127.0.0.1 latest true
+bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --no-db
 echo '------------------------------------------'
 echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
 WP_MULTISITE=1 composer phpunit --ansi
 
 echo "🧹 Removing files before testing nightly WP..."
+cleanup
 
 echo "🤔 Installing WP Unit tests with WP nightly version..."
-bash "${DIRNAME}/install-wp-tests.sh" wordpress_test root root 127.0.0.1 nightly true
-echo "📄 Copying wp-latest.json..."
-cp /tmp/wp-latest.json "${DIRNAME}/../tests/wp-latest.json"
+bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --version=nightly --no-db
 
 setup_wp_nightly
 
