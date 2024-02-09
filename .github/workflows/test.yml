@@ -11,6 +11,18 @@ jobs:
         image: mariadb:10.6    
     steps:
       - uses: actions/checkout@v4
+      - name: Start MySQL
+        run: |
+          sudo systemctl start mysql
+          # Validate that MySQL is running
+          sudo systemctl status mysql
+          # Connect to MySQL to test auth.
+          mysql -e "SELECT 1" -uroot -proot
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp      
       - name: Setup barebones project
         run: |
           mkdir test_proj && cd test_proj
@@ -27,18 +39,6 @@ jobs:
           test -f bin/phpunit-test.sh || (echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1)
           test -f bin/helpers.sh || (echo "❌ bin/helpers.sh not found" >&2 && exit 1)
           echo "✅ All bin files found"
-      - name: Start MySQL
-        run: |
-          sudo systemctl start mysql
-          # Validate that MySQL is running
-          sudo systemctl status mysql
-          # Connect to MySQL to test auth.
-          mysql -e "SELECT 1" -uroot -proot
-      - name: Install WP-CLI
-        run: |
-          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-          chmod +x wp-cli.phar
-          sudo mv wp-cli.phar /usr/local/bin/wp
       - name: Run local install
         shell: bash
         env:
