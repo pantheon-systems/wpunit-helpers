@@ -147,10 +147,14 @@ install_test_suite() {
 		sed "$ioption" "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed "$ioption" "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
-
 }
 
 install_db() {
+	DB_HOST=${1:-"127.0.0.1"}
+	DB_NAME=${2:-"wordpress_test"}
+	DB_USER=${3:-"root"}
+	DB_PASS=${4:-""}
+	SKIP_DB=${5:-""}
 
 	if [ "${SKIP_DB_CREATE}" = "true" ]; then
 		return 0
