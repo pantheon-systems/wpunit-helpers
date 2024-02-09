@@ -13,6 +13,7 @@ DB_HOST="127.0.0.1"
 WP_VERSION=${WP_VERSION:-latest}
 SKIP_DB=""
 
+# shellcheck disable=SC2145
 echo "Passed args: $@"
 
 # Parse command-line arguments
@@ -24,7 +25,7 @@ for i in "$@"; do
 	fi
 
 	# Skip the script path argument
-	if [[ $i == "*install-wp-tests.sh" ]]; then
+	if [[ $i == *install-wp-tests.sh ]]; then
 		echo "Ignoring script path argument"
 		continue
 	fi
