@@ -94,22 +94,43 @@ setup_wp() {
 
 # Sets up WordPress nightly version. Uses setup_wp to get WordPress, then installs Gutenberg on the recently installed WordPress site.
 setup_wp_nightly() {
-	WP_DIR="/tmp/wordpress"
+	# Initialize variables with default values
+	TMPDIR="/tmp"
+	DB_NAME="wordpress_test"
+	DB_USER="root"
+	DB_PASS=""
+	DB_HOST="127.0.0.1"
 
+	# Parse command-line arguments
 	for i in "$@"; do
 		case $i in
-			--wpdir=*)
-			WP_DIR="${i#*=}"
+			--dbname=*)
+			DB_NAME="${i#*=}"
+			;;
+			--dbuser=*)
+			DB_USER="${i#*=}"
+			;;
+			--dbpass=*)
+			DB_PASS="${i#*=}"
+			;;
+			--dbhost=*)
+			DB_HOST="${i#*=}"
+			;;
+			--tmpdir=*)
+			TMPDIR="${i#*=}"
 			;;
 			*)
 			# unknown option
-			echo "Unknown option: $i. Usage: setup_wp_nightly --wpdir=/tmp/wordpress"
+			echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp"
 			exit 1
 			;;
 		esac
 	done
 
-	setup_wp --version="nightly"
+	WP_DIR="$TMPDIR/wordpress"
+
+	setup_wp --version="nightly" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+
 	# If nightly version of WP is installed, install latest Gutenberg plugin and activate it.
 	echo "Installing Gutenberg plugin"
 	wp plugin install gutenberg --activate --path="$WP_DIR"
