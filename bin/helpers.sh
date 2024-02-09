@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+
 download() {
     if which curl &> /dev/null; then  
         curl -s "$1" > "$2";  
