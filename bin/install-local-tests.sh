@@ -63,5 +63,6 @@ else
 fi
 
 # Run PHPUnit
+pwd
 echo "Running PHPUnit"
 composer phpunit
