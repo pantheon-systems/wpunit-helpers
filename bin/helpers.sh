@@ -168,8 +168,12 @@ install_db() {
 		fi
 	fi
 
+	if [ -n "$DB_PASS" ] ; then
+		EXTRA="$EXTRA --password=$DB_PASS"
+	fi
+
 	# create database
-	mysqladmin create "$DB_NAME" --user="$DB_USER" --password="$DB_PASS""$EXTRA"
+	mysqladmin create "$DB_NAME" --user="$DB_USER" "$EXTRA"
 }
 
 cleanup() {
