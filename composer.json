@@ -33,6 +33,7 @@
             "@shellcheck",
             "@phpcs",
             "@phplint"
-        ]
+        ],
+        "phpunit": "echo 'Nothing to see here.'"
     }
 }
