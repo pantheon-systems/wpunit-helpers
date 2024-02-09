@@ -20,4 +20,4 @@ fi
 echo "Testing nightly install..."
 "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --version=nightly --skip-db=true --tmpdir="$GITHUB_WORKSPACE"/local_tests
 
-cleanup
+cleanup "$GITHUB_WORKSPACE/local_tests"

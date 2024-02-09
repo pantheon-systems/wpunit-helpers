@@ -221,9 +221,10 @@ install_db() {
 }
 
 cleanup() {
-	WPDIR=${1:-"/tmp/wordpress"}
-	WP_TESTS_DIR=${2:-"/tmp/wordpress-tests-lib"}
-	WP_VERSION_JSON=${3:-"/tmp/wp-latest.json"}
+	TMPDIR=${1:-"/tmp"}
+	WPDIR=${2:-"$TMPDIR/wordpress"}
+	WP_TESTS_DIR=${3:-"$TMPDIR/wordpress-tests-lib"}
+	WP_VERSION_JSON=${4:-"$TMPDIR/wp-latest.json"}
 
 	wp db reset --yes --path="$WPDIR"
 	rm -rf "$WPDIR"
