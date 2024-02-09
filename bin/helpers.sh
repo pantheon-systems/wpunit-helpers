@@ -188,7 +188,12 @@ cleanup() {
 	wp db reset --yes --path="$WPDIR"
 	rm -rf "$WPDIR"
 	rm -rf "$WP_TESTS_DIR"
-	rm -f "$WP_VERSION_JSON"
+
+	# Check if the file exists
+	if [ -f "$WP_VERSION_JSON" ]; then
+		# Remove the files
+		rm -f "$WP_VERSION_JSON"
+	fi
 }
 
 # Display usage information
