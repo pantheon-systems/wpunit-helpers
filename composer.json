@@ -26,7 +26,7 @@
         "class": "Pantheon\\WPUnitHelpers\\Plugin"
     },
     "scripts": {
-        "shellcheck": "find bin/ -name \"*.sh\" | grep -v \"install-wp-tests.sh\" | xargs shellcheck",
+        "shellcheck": "shellcheck bin/*",
         "phpcs": "phpcs --standard=PSR2 src/",
         "phplint": "find src/ -name '*.php' -exec php -l {} \\;",
         "lint": [
