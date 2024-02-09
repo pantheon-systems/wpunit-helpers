@@ -17,6 +17,18 @@ echo "Passed args: $@"
 
 # Parse command-line arguments
 for i in "$@"; do
+	# Skip 'bash' argument
+	if [[ $i == "bash" ]]; then
+		echo "Ignoring 'bash' argument"
+		continue
+	fi
+
+	# Skip the script path argument
+	if [[ $i == "*install-wp-tests.sh" ]]; then
+		echo "Ignoring script path argument"
+		continue
+	fi
+
 	case $i in
 		--dbname=*)
 		DB_NAME="${i#*=}"
