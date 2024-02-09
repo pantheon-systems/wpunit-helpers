@@ -145,10 +145,10 @@ install_test_suite() {
 }
 
 install_db() {
-	DB_HOST=${1:-"127.0.0.1"}
-	DB_NAME=${2:-"wordpress_test"}
-	DB_USER=${3:-"root"}
-	DB_PASS=${4:-""}
+	DB_NAME=${1:-"wordpress_test"}
+	DB_USER=${2:-"root"}
+	DB_PASS=${3:-""}
+	DB_HOST=${4:-"127.0.0.1"}
 
 	if [ "${SKIP_DB_CREATE}" = "true" ]; then
 		return 0
