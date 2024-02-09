@@ -38,12 +38,9 @@ jobs:
           sudo mv wp-cli.phar /usr/local/bin/wp
       - name: Run local install
         shell: bash
-        run: |
-          echo "Testing latest install..."
-          mkdir -p ${{ github.workspace }}/local_tests
-          bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir=${{ github.workspace }}/local_tests
-          echo "Testing nightly install..."
-          bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --version=nightly --skip-db=true --tmpdir=${{ github.workspace }}/local_tests
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+        run: bash ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
       - name: Run PHPUnit Test Install
         run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
