@@ -48,7 +48,7 @@ setup_wp() {
 	TMPDIR="/tmp"
 	DB_NAME="wordpress_test"
 	DB_USER="root"
-	DB_PASS="root"
+	DB_PASS=""
 	DB_HOST="127.0.0.1"
 	WP_VERSION=${WP_VERSION:-latest}
 	SKIP_DB=""
