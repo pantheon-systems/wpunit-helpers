@@ -21,6 +21,11 @@ jobs:
           test -f bin/phpunit-test.sh || (echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1)
           test -f bin/helpers.sh || (echo "❌ bin/helpers.sh not found" >&2 && exit 1)
           echo "✅ All bin files found"
+      - name: Install WP-CLI
+        run: |
+          curl -0 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
       - name: Run local install
         run: |
           echo "Testing latest install..."
