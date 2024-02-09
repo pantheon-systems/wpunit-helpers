@@ -25,9 +25,9 @@ jobs:
         run: |
           echo "Testing latest install..."
           mkdir -p ${{ github.workspace }}/local_tests && cd ${{ github.workspace }}/local_tests
-          bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --dbpass=root
+          bash ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir=${{ github.workspace }}/local_tests
           echo "Testing nightly install..."
-          ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --version=nightly --no-db
+          ${{ github.workspace }}/test_proj/bin/install-local-tests.sh --version=nightly --no-db --tmpdir=${{ github.workspace }}/local_tests
       - name: Run PHPUnit Tests
-        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh
+        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
