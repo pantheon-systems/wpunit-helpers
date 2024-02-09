@@ -43,7 +43,7 @@ jobs:
         shell: bash
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
-        run: bash ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
+        run: ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
       - name: Run PHPUnit Test Install
         run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
