@@ -69,5 +69,11 @@ if [ -z "$SKIP_DB" ]; then
 fi
 
 download_wp --version="$WP_VERSION" --tmpdir="$TMPDIR"
-setup_wp --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+
+if [ "$WP_VERSION" == "nightly" ]; then
+	setup_wp_nightly --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+else
+	setup_wp --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+fi
+
 install_test_suite "$WP_VERSION" "$TMPDIR" "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"
