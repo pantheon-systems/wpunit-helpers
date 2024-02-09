@@ -13,9 +13,6 @@ DB_HOST="127.0.0.1"
 WP_VERSION=${WP_VERSION:-latest}
 SKIP_DB=""
 
-# shellcheck disable=SC2145
-echo "Passed args: $@"
-
 # Parse command-line arguments
 for i in "$@"; do
 	# Skip 'bash' argument
