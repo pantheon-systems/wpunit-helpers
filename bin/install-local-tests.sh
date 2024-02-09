@@ -55,7 +55,7 @@ done
 # Run install-wp-tests.sh
 echo "Installing local tests into ${TMPDIR}"
 echo "Using WordPress version: ${WP_VERSION}"
-bash "$(dirname "$0")/install-wp-tests.sh" "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST" "$WP_VERSION" "$SKIP_DB"
+bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" "$SKIP_DB"
 
 # Run PHPUnit
 echo "Running PHPUnit"
