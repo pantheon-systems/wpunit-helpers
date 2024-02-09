@@ -37,7 +37,7 @@ for i in "$@"; do
     shift
     ;;
     --no-db)
-    SKIP_DB="true"
+    SKIP_DB="--no-db"
     shift
     ;;
     --tmpdir=*)
