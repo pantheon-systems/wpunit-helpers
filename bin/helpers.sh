@@ -154,7 +154,12 @@ get_wp_version_num() {
 install_test_suite() {
 	WP_VERSION=${1:-"latest"}
 	TMPDIR=${2:-"/tmp"}
+	DB_NAME=${3:-"wordpress_test"}
+	DB_USER=${4:-"root"}
+	DB_PASS=${5:-""}
+	DB_HOST=${6:-"127.0.0.1"}
 	WP_VERSION=$(get_wp_version_num --version="$WP_VERSION" --tmpdir="$TMPDIR")
+	WP_TESTS_DIR=${WP_TESTS_DIR-"$TMPDIR/wordpress-tests-lib"}
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i .bak'
@@ -166,12 +171,12 @@ install_test_suite() {
 	if [ ! -d "$WP_TESTS_DIR" ]; then
 		# set up testing suite
 		mkdir -p "$WP_TESTS_DIR"
-		svn co --quiet --ignore-externals https://develop.svn.wordpress.org/"${WP_TESTS_TAG}"/tests/phpunit/includes/ "$WP_TESTS_DIR"/includes
-		svn co --quiet --ignore-externals https://develop.svn.wordpress.org/"${WP_TESTS_TAG}"/tests/phpunit/data/ "$WP_TESTS_DIR"/data
+		svn co --quiet --ignore-externals https://develop.svn.wordpress.org/"${WP_VERSION}"/tests/phpunit/includes/ "$WP_TESTS_DIR"/includes
+		svn co --quiet --ignore-externals https://develop.svn.wordpress.org/"${WP_VERSION}"/tests/phpunit/data/ "$WP_TESTS_DIR"/data
 	fi
 
 	if [ ! -f wp-tests-config.php ]; then
-		download https://develop.svn.wordpress.org/"${WP_TESTS_TAG}"/wp-tests-config-sample.php "$WP_TESTS_DIR"/wp-tests-config.php
+		download https://develop.svn.wordpress.org/"${WP_VERSION}"/wp-tests-config-sample.php "$WP_TESTS_DIR"/wp-tests-config.php
 		# remove all forward slashes in the end
 		WP_CORE_DIR="${WP_CORE_DIR%/}"
 		sed "$ioption" "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR/':" "$WP_TESTS_DIR"/wp-tests-config.php
