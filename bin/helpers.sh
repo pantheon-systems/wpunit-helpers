@@ -51,7 +51,6 @@ setup_wp() {
 	DB_PASS=""
 	DB_HOST="127.0.0.1"
 	WP_VERSION=${WP_VERSION:-latest}
-	SKIP_DB=""
 
 	# Parse command-line arguments
 	for i in "$@"; do
@@ -76,17 +75,13 @@ setup_wp() {
 			WP_VERSION="${i#*=}"
 			shift
 			;;
-			--no-db)
-			SKIP_DB="true"
-			shift
-			;;
 			--tmpdir=*)
 			TMPDIR="${i#*=}"
 			shift
 			;;
 			*)
 			# unknown option
-			echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --no-db"
+			echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp"
 			exit 1
 			;;
 		esac
