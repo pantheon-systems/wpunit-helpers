@@ -81,7 +81,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         \"scripts\": {
             \"phpunit\": \"phpunit --do-not-cache-result\",
             \"test\": \"@phpunit\",
-            \"test:install\": \"bin/install-local-tests.sh --no-db\",
+            \"test:install\": \"bin/install-local-tests.sh --skip-db=true\",
             \"test:install:withdb\": \"bin/install-local-tests.sh\"
         }";
     
