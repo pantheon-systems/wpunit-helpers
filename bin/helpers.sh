@@ -54,43 +54,42 @@ setup_wp() {
 	SKIP_DB=""
 
 	# Parse command-line arguments
-	for i in "$@"
-	do
-	case $i in
-		--dbname=*)
-		DB_NAME="${i#*=}"
-		shift
-		;;
-		--dbuser=*)
-		DB_USER="${i#*=}"
-		shift
-		;;
-		--dbpass=*)
-		DB_PASS="${i#*=}"
-		shift
-		;;
-		--dbhost=*)
-		DB_HOST="${i#*=}"
-		shift
-		;;
-		--wpversion=*)
-		WP_VERSION="${i#*=}"
-		shift
-		;;
-		--no-db)
-		SKIP_DB="true"
-		shift
-		;;
-		--tmpdir=*)
-		TMPDIR="${i#*=}"
-		shift
-		;;
-		*)
-		# unknown option
-		echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --wpversion=latest --tmpdir=/tmp --no-db"
-		exit 1
-		;;
-	esac
+	for i in "$@"; do
+		case $i in
+			--dbname=*)
+			DB_NAME="${i#*=}"
+			shift
+			;;
+			--dbuser=*)
+			DB_USER="${i#*=}"
+			shift
+			;;
+			--dbpass=*)
+			DB_PASS="${i#*=}"
+			shift
+			;;
+			--dbhost=*)
+			DB_HOST="${i#*=}"
+			shift
+			;;
+			--version=*)
+			WP_VERSION="${i#*=}"
+			shift
+			;;
+			--no-db)
+			SKIP_DB="true"
+			shift
+			;;
+			--tmpdir=*)
+			TMPDIR="${i#*=}"
+			shift
+			;;
+			*)
+			# unknown option
+			echo "Unknown option: $i. Usage: setup_wp --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --no-db"
+			exit 1
+			;;
+		esac
 	done
 
 	download http://api.wordpress.org/core/version-check/1.7/ "$TMPDIR"/wp-latest.json	
