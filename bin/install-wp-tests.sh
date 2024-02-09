@@ -56,7 +56,7 @@ WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 
 download_wp --version="$WP_VERSION" --tmpdir="$TMPDIR"
-setup_wp --version="$WP_VERSION"
+setup_wp --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
 install_test_suite
 
 # Maybe install the database.
