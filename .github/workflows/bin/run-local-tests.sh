@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -ex
-
+chmod +x "$GITHUB_WORKSPACE"/bin/*.sh
 echo "Testing latest install..."
 mkdir -p "$GITHUB_WORKSPACE"/local_tests
 "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir="$GITHUB_WORKSPACE"/local_tests
