@@ -79,9 +79,13 @@ setup_wp() {
 		esac
 	done
 
-	download http://api.wordpress.org/core/version-check/1.7/ "$TMPDIR"/wp-latest.json	
-	echo "Creating wp-config.php"
-	wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --dbprefix="wptests_" --path="${TMPDIR}/wordpress"
+	download http://api.wordpress.org/core/version-check/1.7/ "$TMPDIR"/wp-latest.json
+
+	if [ ! -f "$TMPDIR/wordpress/wp-config.php" ]; then
+		echo "Creating wp-config.php"
+		wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --dbprefix="wptests_" --path="${TMPDIR}/wordpress"
+	fi
+		
 	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="${TMPDIR}/wordpress"
 }
 
