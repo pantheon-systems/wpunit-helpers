@@ -18,31 +18,24 @@ for i in "$@"; do
 	case $i in
 		--dbname=*)
 		DB_NAME="${i#*=}"
-		shift
 		;;
 		--dbuser=*)
 		DB_USER="${i#*=}"
-		shift
 		;;
 		--dbpass=*)
 		DB_PASS="${i#*=}"
-		shift
 		;;
 		--dbhost=*)
 		DB_HOST="${i#*=}"
-		shift
 		;;
 		--version=*)
 		WP_VERSION="${i#*=}"
-		shift
 		;;
 		--no-db)
 		SKIP_DB="true"
-		shift
 		;;
 		--tmpdir=*)
 		TMPDIR="${i#*=}"
-		shift
 		;;
 		*)
 		# unknown option
