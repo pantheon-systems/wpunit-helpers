@@ -13,6 +13,8 @@ DB_HOST="127.0.0.1"
 WP_VERSION=${WP_VERSION:-latest}
 SKIP_DB=""
 
+echo "Passed args: $@"
+
 # Parse command-line arguments
 for i in "$@"; do
 	case $i in
@@ -39,7 +41,6 @@ for i in "$@"; do
 		;;
 		*)
 		# unknown option
-		echo "Passed args: $@"
 		echo "Unknown option: $i. Usage: ./bin/install-wp-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --skip-db=true"
 		exit 1
 		;;
