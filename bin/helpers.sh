@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Arbitrary download function that uses wget or curl depending on what's available.
 download() {
     if which curl &> /dev/null; then  
         curl -s "$1" > "$2";  
@@ -11,6 +12,7 @@ download() {
     fi  
 }
 
+# Download WordPress with wp-cli. Always forces the download of files to overwrite existing ones.
 download_wp() {
 	TMPDIR="/tmp"
 	WP_VERSION="latest"
@@ -41,6 +43,7 @@ download_wp() {
 	wp core download --version="$WP_VERSION" --path="${TMPDIR}/wordpress" --force
 }
 
+# Sets up WordPress using wp config create (if a wp-config file doesn't already exist) and wp core install. Expects that WordPress is already downloaded.
 setup_wp() {
 	# Initialize variables with default values
 	TMPDIR="/tmp"
@@ -89,6 +92,7 @@ setup_wp() {
 	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="${TMPDIR}/wordpress"
 }
 
+# Sets up WordPress nightly version. Uses setup_wp to get WordPress, then installs Gutenberg on the recently installed WordPress site.
 setup_wp_nightly() {
 	WP_DIR="/tmp/wordpress"
 
@@ -111,6 +115,7 @@ setup_wp_nightly() {
 	wp plugin install gutenberg --activate --path="$WP_DIR"
 }
 
+# Gets the WordPress version number from the JSON file. If the version is "latest", it will get the latest version from the JSON file. If the version is "nightly", it will return "trunk".
 get_wp_version_num() {
 	WP_VERSION="latest"
 	TMPDIR="/tmp/wp-latest.json"
@@ -144,6 +149,7 @@ get_wp_version_num() {
 	echo "$WP_VERSION"
 }
 
+# Installs the WordPress test suite over svn. Uses get_wp_version_num to get a version based on what's passed that the svn repository will recognize.
 install_test_suite() {
 	WP_VERSION=${1:-"latest"}
 	TMPDIR=${2:-"/tmp"}
@@ -188,6 +194,7 @@ install_test_suite() {
 	fi
 }
 
+# Installs the WordPress database. Uses the passed arguments to create a database.
 install_db() {
 	DB_NAME=${1:-"wordpress_test"}
 	DB_USER=${2:-"root"}
@@ -220,6 +227,7 @@ install_db() {
 	mysqladmin create "$DB_NAME" --user="$DB_USER" $EXTRA
 }
 
+# Deletes all the WordPress files so we can make another pass with a different version. Resets the database to an empty db (but does not drop it).
 cleanup() {
 	TMPDIR=${1:-"/tmp"}
 	WPDIR=${2:-"$TMPDIR/wordpress"}
