@@ -150,9 +150,7 @@ install_db() {
 	DB_PASS=${3:-""}
 	DB_HOST=${4:-"127.0.0.1"}
 
-	if [ "${SKIP_DB_CREATE}" = "true" ]; then
-		return 0
-	fi
+	echo "Creating database: $1 on $4..."
 
 	# parse DB_HOST for port or socket references
 	IFS=':' read -ra PARTS <<< "${DB_HOST}"
