@@ -97,6 +97,25 @@ setup_wp() {
 	wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --dbprefix="wptests_" --path="${TMPDIR}/wordpress"
 	wp core install --url=localhost --title=Test --admin_user=admin --admin_password=password --admin_email=test@dev.null --path="${TMPDIR}/wordpress"
 }
+
+setup_wp_nightly() {
+	WP_DIR="/tmp/wordpress"
+
+	for i in "$@"; do
+		case $i in
+			--wpdir=*)
+			WP_DIR="${i#*=}"
+			shift
+			;;
+			*)
+			# unknown option
+			echo "Unknown option: $i. Usage: setup_wp_nightly --wpdir=/tmp/wordpress"
+			exit 1
+			;;
+		esac
+	done
+
+	setup_wp --version="nightly"
 	# If nightly version of WP is installed, install latest Gutenberg plugin and activate it.
 	echo "Installing Gutenberg plugin"
 	wp plugin install gutenberg --activate --path="$WP_DIR"
