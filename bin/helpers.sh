@@ -242,9 +242,3 @@ cleanup() {
 		rm -f "$WP_VERSION_JSON"
 	fi
 }
-
-# Display usage information
-usage() {
-  echo "Usage:"
-  echo "$0 [--dbname=wordpress_test] [--dbuser=root] [--dbpass=''] [--dbhost=127.0.0.1] [--wpversion=latest] [--no-db]"
-}
