@@ -15,9 +15,12 @@ else
   exit 1
 fi
 
-"$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --dbpass=root --tmpdir="$GITHUB_WORKSPACE"/local_tests
+"$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --dbpass="$DB_PASS" --tmpdir="$GITHUB_WORKSPACE"/local_tests
 
 echo "Testing nightly install..."
 "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh --version=nightly --skip-db=true --tmpdir="$GITHUB_WORKSPACE"/local_tests
 
 cleanup "$GITHUB_WORKSPACE/local_tests"
+mysql -u"$DB_USER" -p"$DB_PASS" -h"$DB_HOST" -e "DROP DATABASE IF EXISTS \`$DB_NAME\`;"
+
+echo "Done! ✅"
