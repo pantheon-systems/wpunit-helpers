@@ -56,7 +56,7 @@ WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 
 # Maybe install the database.
-if [ -n "$SKIP_DB" ]; then
+if [ -z "$SKIP_DB" ]; then
 	install_db "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"
 fi
 
