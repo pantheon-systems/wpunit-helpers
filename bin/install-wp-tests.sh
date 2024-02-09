@@ -39,6 +39,7 @@ for i in "$@"; do
 		;;
 		*)
 		# unknown option
+		echo "Passed args: $@"
 		echo "Unknown option: $i. Usage: ./bin/install-wp-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --skip-db=true"
 		exit 1
 		;;
