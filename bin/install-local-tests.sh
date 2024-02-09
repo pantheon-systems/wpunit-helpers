@@ -57,7 +57,7 @@ echo "Installing local tests into ${TMPDIR}"
 echo "Using WordPress version: ${WP_VERSION}"
 
 if [ -z "$SKIP_DB" ]; then
-  bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER"
+  bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
 else
   bash "$(dirname "$0")/install-wp-tests.sh" bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --no-db
 fi
