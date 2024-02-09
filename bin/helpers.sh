@@ -117,10 +117,29 @@ setup_wp_nightly() {
 }
 
 get_wp_version_num() {
-	WP_VERSION=${WP_VERSION:-latest}
-	WP_VERSION_JSON="/tmp/wp-latest.json"
+	WP_VERSION="latest"
+	TMPDIR="/tmp/wp-latest.json"
+
+	for i in "$@"; do
+		case $i in
+			--version=*)
+			WP_VERSION="${i#*=}"
+			shift
+			;;
+			--tmpdir=*)
+			TMPDIR="${i#*=}"
+			shift
+			;;
+			*)
+			# unknown option
+			echo "Unknown option: $i. Usage: get_wp_version_num --version=latest --tmpdir=/tmp/wp-latest.json"
+			exit 1
+			;;
+		esac
+	done
 
 	# Get latest version from JSON if latest was passed.
+	WP_VERSION_JSON="${TMPDIR}/wp-latest.json"
 	if [ "$WP_VERSION" == "latest" ]; then
 		WP_VERSION=$(grep -o '"version":"[^"]*' "$WP_VERSION_JSON" | cut -d'"' -f4)
 	fi
@@ -133,7 +152,9 @@ get_wp_version_num() {
 }
 
 install_test_suite() {
-	WP_VERSION=$(get_wp_version_num "$@")
+	WP_VERSION=${1:-"latest"}
+	TMPDIR=${2:-"/tmp"}
+	WP_VERSION=$(get_wp_version_num --version="$WP_VERSION" --tmpdir="$TMPDIR")
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i .bak'
