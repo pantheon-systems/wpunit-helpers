@@ -42,7 +42,7 @@ case $i in
     DB_HOST="${i#*=}"
     shift
     ;;
-    --wpversion=*)
+    --version=*)
     WP_VERSION="${i#*=}"
     shift
     ;;
