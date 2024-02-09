@@ -14,7 +14,7 @@ echo '------------------------------------------'
 echo "🏃‍♂️ [Run 1]: Running PHPUnit on Single Site"
 composer phpunit --ansi
 
-bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --no-db
+bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --skip-db=true
 echo '------------------------------------------'
 echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
 WP_MULTISITE=1 composer phpunit --ansi
@@ -23,7 +23,7 @@ echo "🧹 Removing files before testing nightly WP..."
 cleanup
 
 echo "🤔 Installing WP Unit tests with WP nightly version..."
-bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --version=nightly --no-db
+bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --version=nightly --skip-db=true
 
 setup_wp_nightly
 

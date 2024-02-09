@@ -31,7 +31,7 @@ for i in "$@"; do
     --version=*)
     WP_VERSION="${i#*=}"
     ;;
-    --no-db)
+    --skip-db=*)
     SKIP_DB="true"
     ;;
     --tmpdir=*)
@@ -39,7 +39,7 @@ for i in "$@"; do
     ;;
     *)
     # unknown option
-    echo "Unknown option: $i. Usage: ./bin/install-local-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --no-db"
+    echo "Unknown option: $i. Usage: ./bin/install-local-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --skip-db=true"
     exit 1
     ;;
   esac
@@ -52,7 +52,7 @@ echo "Using WordPress version: ${WP_VERSION}"
 if [ -z "$SKIP_DB" ]; then
   bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
 else
-  bash "$(dirname "$0")/install-wp-tests.sh" bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --no-db
+  bash "$(dirname "$0")/install-wp-tests.sh" bash "$(dirname "$0")/install-wp-tests.sh" --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --skip-db=true
 fi
 
 # Run PHPUnit

@@ -31,7 +31,7 @@ for i in "$@"; do
 		--version=*)
 		WP_VERSION="${i#*=}"
 		;;
-		--no-db)
+		--skip-db=*)
 		SKIP_DB="true"
 		;;
 		--tmpdir=*)
@@ -39,7 +39,7 @@ for i in "$@"; do
 		;;
 		*)
 		# unknown option
-		echo "Unknown option: $i. Usage: ./bin/install-wp-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --no-db"
+		echo "Unknown option: $i. Usage: ./bin/install-wp-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --skip-db=true"
 		exit 1
 		;;
 	esac
