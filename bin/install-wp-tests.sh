@@ -62,4 +62,4 @@ fi
 
 download_wp --version="$WP_VERSION" --tmpdir="$TMPDIR"
 setup_wp --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
-install_test_suite "$WP_VERSION" "$TMPDIR"
+install_test_suite "$WP_VERSION" "$TMPDIR" "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"
