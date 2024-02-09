@@ -50,6 +50,10 @@ case $i in
     SKIP_DB="true"
     shift
     ;;
+    --tmpdir=*)
+    TMPDIR="${i#*=}"
+    shift
+    ;;
     *)
     # unknown option
     usage "./install-local-tests.sh"
