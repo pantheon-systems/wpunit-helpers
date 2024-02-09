@@ -46,10 +46,10 @@ for i in "$@"; do
     ;;
     *)
     # unknown option
-    usage "./install-local-tests.sh"
+    echo "Unknown option: $i. Usage: ./bin/install-local-tests.sh --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --version=latest --tmpdir=/tmp --no-db"
     exit 1
     ;;
-esac
+  esac
 done
 
 # Run install-wp-tests.sh
