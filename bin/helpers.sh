@@ -38,7 +38,7 @@ download_wp() {
 	fi
 
 	echo "Downloading WordPress version: ${WP_VERSION} to ${TMPDIR}/wordpress"
-	wp core download --version="$WP_VERSION" --path="${TMPDIR}/wordpress"
+	wp core download --version="$WP_VERSION" --path="${TMPDIR}/wordpress" --force
 }
 
 setup_wp() {
