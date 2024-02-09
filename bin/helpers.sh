@@ -172,8 +172,8 @@ install_db() {
 		EXTRA="$EXTRA --password=$DB_PASS"
 	fi
 
-	# create database
-	mysqladmin create "$DB_NAME" --user="$DB_USER" $EXTRA # shellcheck disable=SC2086
+	# shellcheck disable=SC2086
+	mysqladmin create "$DB_NAME" --user="$DB_USER" $EXTRA
 }
 
 cleanup() {
