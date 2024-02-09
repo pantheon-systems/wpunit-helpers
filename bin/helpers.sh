@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 download() {
     if which curl &> /dev/null; then  
         curl -s "$1" > "$2";  
@@ -19,7 +17,7 @@ download_wp() {
 
 	for i in "$@"; do
 		case $i in
-			--wpversion=*)
+			--version=*)
 			WP_VERSION="${i#*=}"
 			shift
 			;;
@@ -29,10 +27,11 @@ download_wp() {
 			;;
 			*)
 			# unknown option
-			echo "Unknown option: $i. Usage: download_wp --wpversion=latest --tmpdir=/tmp"
+			echo "Unknown option: $i. Usage: download_wp --version=latest --tmpdir=/tmp"
 			exit 1
 			;;
 		esac
+	done
 
 	# Check for WP-CLI. If the wp command does not exist, exit.
 	if ! which wp &> /dev/null; then
