@@ -185,6 +185,7 @@ cleanup() {
 	WP_TESTS_DIR=${2:-"/tmp/wordpress-tests-lib"}
 	WP_VERSION_JSON=${3:-"/tmp/wp-latest.json"}
 
+	wp db reset --yes --path="$WPDIR"
 	rm -rf "$WPDIR"
 	rm -rf "$WP_TESTS_DIR"
 	rm -f "$WP_VERSION_JSON"
