@@ -173,7 +173,7 @@ install_db() {
 	fi
 
 	# create database
-	mysqladmin create "$DB_NAME" --user="$DB_USER" "$EXTRA"
+	mysqladmin create "$DB_NAME" --user="$DB_USER" $EXTRA # shellcheck disable=SC2086
 }
 
 cleanup() {
