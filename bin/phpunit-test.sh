@@ -24,8 +24,6 @@ cleanup
 echo "🤔 Installing WP Unit tests with WP nightly version..."
 bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --version=nightly --skip-db=true
 
-setup_wp_nightly
-
 echo '------------------------------------------'
 echo "🏃‍♂️ [Run 3]: Running PHPUnit on Single Site (Nightly WordPress)"
 composer phpunit --ansi
