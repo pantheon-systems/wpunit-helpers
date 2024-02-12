@@ -9,9 +9,7 @@ chmod +x "$GITHUB_WORKSPACE"/test_proj/bin/*.sh
 echo "Testing latest install..."
 mkdir -p "$GITHUB_WORKSPACE"/local_tests
 
-if [ -f "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh ]; then
-  echo "install-local-tests.sh exists, proceeding"
-else
+if [ ! -f "$GITHUB_WORKSPACE"/test_proj/bin/install-local-tests.sh ]; then
   echo "install-local-tests.sh does not exist"
   exit 1
 fi
