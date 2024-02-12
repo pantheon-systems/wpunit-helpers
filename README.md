@@ -51,7 +51,7 @@ The `install-local-tests.sh` script is highly configurable to allow for a variet
 ### Flags
 
 #### `--skip-db`
-If set and `true`, this flag will skip the database creation step. This is useful if you are using a local database that is already set up. This replaces the (now deprecated `--no-db` flag).
+If set and `true`, this flag will skip the database creation step. This is useful if you are using a local database that is already set up. This replaces the (now deprecated) `--no-db` flag.
 
 #### `--dbname`
 This flag will set the name of the database to be created. The default value is `wordpress_test`.
