@@ -57,8 +57,8 @@ for i in "$@"; do
 	esac
 done
 
-WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
-WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+WP_TESTS_DIR=${WP_TESTS_DIR:-$TMPDIR/wordpress-tests-lib}
+WP_CORE_DIR=${WP_CORE_DIR:-$TMPDIR/wordpress/}
 
 # Maybe install the database.
 if [ -z "$SKIP_DB" ]; then
