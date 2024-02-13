@@ -5,13 +5,13 @@ set -ex
 source "$(dirname "$0")/helpers.sh"
 
 # Initialize variables with default values
-TMPDIR="${TMPDIR}:-/tmp"
-DB_NAME="${DB_NAME}:-wordpress_test"
-DB_USER="${DB_USER}:-root"
-DB_PASS="${DB_PASS}:-"
-DB_HOST="${DB_HOST}:-127.0.0.1"
+TMPDIR="/tmp"
+DB_NAME="wordpress_test"
+DB_USER="root"
+DB_PASS=""
+DB_HOST="127.0.0.1"
 WP_VERSION=${WP_VERSION:-latest}
-SKIP_DB="${SKIP_DB}:-"
+SKIP_DB=""
 
 # Parse command-line arguments
 for i in "$@"; do
