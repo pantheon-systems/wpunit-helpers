@@ -62,15 +62,21 @@ WP_CORE_DIR=${WP_CORE_DIR:-$TMPDIR/wordpress/}
 
 # Maybe install the database.
 if [ -z "$SKIP_DB" ]; then
+	echo "Installing database"
 	install_db "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"
 fi
 
 download_wp --version="$WP_VERSION" --tmpdir="$TMPDIR"
 
+SETUP_ARGS=(--version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
+
 if [ "$WP_VERSION" == "nightly" ]; then
-	setup_wp_nightly --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+	echo "Setting up WP nightly"
+	setup_wp_nightly "${SETUP_ARGS[@]}"
 else
-	setup_wp --version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST"
+	echo "Setting up WP $WP_VERSION"
+	setup_wp "${SETUP_ARGS[@]}"
 fi
 
+echo "Installing WordPress test suite"
 install_test_suite "$WP_VERSION" "$TMPDIR" "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST"

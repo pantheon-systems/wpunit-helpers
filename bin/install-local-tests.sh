@@ -11,7 +11,7 @@ DB_USER="${DB_USER}:-root"
 DB_PASS="${DB_PASS}:-"
 DB_HOST="${DB_HOST}:-127.0.0.1"
 WP_VERSION=${WP_VERSION:-latest}
-SKIP_DB="${SKIP_DB:-}"
+SKIP_DB=""
 
 # Parse command-line arguments
 for i in "$@"; do
@@ -52,6 +52,7 @@ echo "Using WordPress version: ${WP_VERSION}"
 ARGS=(--version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
 
 if [ -n "$SKIP_DB" ]; then
+  echo "Skipping database creation"
   ARGS=("${ARGS[@]}" --skip-db=true)
 fi
 
