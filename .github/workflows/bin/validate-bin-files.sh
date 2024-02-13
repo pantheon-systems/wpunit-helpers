@@ -13,7 +13,7 @@ cd "$TEST_PROJECT_DIRECTORY"
 test -d bin || (echo "❌ bin directory not found" >&2 && exit 1)
 
 for file in "${files[@]}"; do 
-  if ! test -f "$file"; then
+  if [[ ! -f "$file" ]]; then
     echo "❌ $file not found" >&2
     exit 1
   fi
