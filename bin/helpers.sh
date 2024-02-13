@@ -232,16 +232,16 @@ install_db() {
 
 	if [ -n "$DB_HOSTNAME" ] ; then
 		if echo "$DB_SOCK_OR_PORT" | grep -qe '^[0-9]\{1,\}$'; then
-			EXTRA=(--host="$DB_HOSTNAME" --port="$DB_SOCK_OR_PORT" --protocol=tcp)
+			EXTRA=("${EXTRA[@]}" --host="$DB_HOSTNAME" --port="$DB_SOCK_OR_PORT" --protocol=tcp)
 		elif [ -n "$DB_SOCK_OR_PORT" ] ; then
-			EXTRA=(--socket="$DB_SOCK_OR_PORT")
+			EXTRA=("${EXTRA[@]}" --socket="$DB_SOCK_OR_PORT")
 		elif [ -n "$DB_HOSTNAME" ] ; then
-			EXTRA=(--host="$DB_HOSTNAME" --protocol=tcp)
+			EXTRA=("${EXTRA[@]}" --host="$DB_HOSTNAME" --protocol=tcp)
 		fi
 	fi
 
 	if [ -n "$DB_PASS" ] ; then
-		EXTRA=(--password="$DB_PASS")
+		EXTRA=("${EXTRA[@]}" --password="$DB_PASS")
 	fi
 
 	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
