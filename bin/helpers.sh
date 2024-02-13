@@ -228,24 +228,23 @@ install_db() {
 	local DB_HOSTNAME="${DB_HOST%%:*}"
 	local DB_SOCK_OR_PORT="${DB_HOST#*:}"
 	
-	local EXTRA=""
+	local EXTRA=(--user="$DB_USER")
 
 	if [ -n "$DB_HOSTNAME" ] ; then
 		if echo "$DB_SOCK_OR_PORT" | grep -qe '^[0-9]\{1,\}$'; then
-			EXTRA=" --host=$DB_HOSTNAME --port=$DB_SOCK_OR_PORT --protocol=tcp"
+			EXTRA=(--host="$DB_HOSTNAME" --port="$DB_SOCK_OR_PORT" --protocol=tcp)
 		elif [ -n "$DB_SOCK_OR_PORT" ] ; then
-			EXTRA=" --socket=$DB_SOCK_OR_PORT"
+			EXTRA=(--socket="$DB_SOCK_OR_PORT")
 		elif [ -n "$DB_HOSTNAME" ] ; then
-			EXTRA=" --host=$DB_HOSTNAME --protocol=tcp"
+			EXTRA=(--host="$DB_HOSTNAME" --protocol=tcp)
 		fi
 	fi
 
 	if [ -n "$DB_PASS" ] ; then
-		EXTRA="$EXTRA --password=$DB_PASS"
+		EXTRA=(--password="$DB_PASS")
 	fi
 
-	# shellcheck disable=SC2086
-	mysqladmin create "$DB_NAME" --user="$DB_USER" $EXTRA
+	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
 }
 
 # Deletes all the WordPress files so we can make another pass with a different version. Resets the database to an empty db (but does not drop it).
