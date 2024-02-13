@@ -68,12 +68,13 @@ fi
 
 download_wp --version="$WP_VERSION" --tmpdir="$TMPDIR"
 
-SETUP_ARGS=(--version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
+SETUP_ARGS=(--tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
 
 if [ "$WP_VERSION" == "nightly" ]; then
 	echo "Setting up WP nightly"
 	setup_wp_nightly "${SETUP_ARGS[@]}"
 else
+	SETUP_ARGS=("${SETUP_ARGS[@]}" --version="$WP_VERSION")
 	echo "Setting up WP $WP_VERSION"
 	setup_wp "${SETUP_ARGS[@]}"
 fi
