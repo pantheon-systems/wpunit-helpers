@@ -226,9 +226,9 @@ install_db() {
 	echo "Creating database: $1 on $4..."
 
 	# parse DB_HOST for port or socket references
-	local DB_HOSTNAME="${DB_HOST%%:*}"
-	local DB_SOCK_OR_PORT="${DB_HOST#*:}"
-	
+	IFS=':' read -ra PARTS <<< "${DB_HOST}"
+	local DB_HOSTNAME=${PARTS[0]};
+	local DB_SOCK_OR_PORT=${PARTS[1]};			
 	local EXTRA=(--user="$DB_USER")
 
 	if [ -n "$DB_HOSTNAME" ] ; then
