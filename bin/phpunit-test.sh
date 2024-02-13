@@ -5,7 +5,8 @@ set -e
 source "$(dirname "$0")/helpers.sh"
 
 main() {
-	local DIRNAME=$(dirname "$0")
+	local DIRNAME
+	DIRNAME=$(dirname "$0")
 
 	echo "🤔 Installing WP Unit tests..."
 	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root
