@@ -172,14 +172,14 @@ get_wp_version_num() {
 
 # Installs the WordPress test suite over svn. Uses get_wp_version_num to get a version based on what's passed that the svn repository will recognize.
 install_test_suite() {
-	WP_VERSION=${1:-"latest"}
-	TMPDIR=${2:-"/tmp"}
-	DB_NAME=${3:-"wordpress_test"}
-	DB_USER=${4:-"root"}
-	DB_PASS=${5:-""}
-	DB_HOST=${6:-"127.0.0.1"}
+	local WP_VERSION=${1:-"latest"}
+	local TMPDIR=${2:-"/tmp"}
+	local DB_NAME=${3:-"wordpress_test"}
+	local DB_USER=${4:-"root"}
+	local DB_PASS=${5:-""}
+	local DB_HOST=${6:-"127.0.0.1"}
+	local WP_TESTS_DIR=${WP_TESTS_DIR-"$TMPDIR/wordpress-tests-lib"}
 	WP_VERSION=$(get_wp_version_num --version="$WP_VERSION" --tmpdir="$TMPDIR")
-	WP_TESTS_DIR=${WP_TESTS_DIR-"$TMPDIR/wordpress-tests-lib"}
 
 	# If we're using trunk, there is no tests tag.
 	if [ "$WP_VERSION" == "trunk" ]; then
@@ -217,10 +217,10 @@ install_test_suite() {
 
 # Installs the WordPress database. Uses the passed arguments to create a database.
 install_db() {
-	DB_NAME=${1:-"wordpress_test"}
-	DB_USER=${2:-"root"}
-	DB_PASS=${3:-""}
-	DB_HOST=${4:-"127.0.0.1"}
+	local DB_NAME=${1:-"wordpress_test"}
+	local DB_USER=${2:-"root"}
+	local DB_PASS=${3:-""}
+	local DB_HOST=${4:-"127.0.0.1"}
 
 	echo "Creating database: $1 on $4..."
 
