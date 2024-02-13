@@ -12,10 +12,10 @@ files=(
 cd "$TEST_PROJECT_DIRECTORY"
 test -d bin || (echo "❌ bin directory not found" >&2 && exit 1)
 
-for file in "$(files[@])"; do
+for file in "${files[@]}"; do 
   if ! test -f "$file"; then
-	echo "❌ $file not found" >&2
-	exit 1
+    echo "❌ $file not found" >&2
+    exit 1
   fi
-
+done
 echo "✅ All bin files found"
