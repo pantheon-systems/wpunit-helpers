@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 
 # shellcheck disable=SC1091
 source "$(dirname "$0")/helpers.sh"
