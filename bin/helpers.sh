@@ -14,8 +14,8 @@ download() {
 
 # Download WordPress with wp-cli. Always forces the download of files to overwrite existing ones.
 download_wp() {
-	TMPDIR="/tmp"
-	WP_VERSION="latest"
+	local TMPDIR="/tmp"
+	local WP_VERSION="latest"
 
 	for i in "$@"; do
 		case $i in
@@ -46,12 +46,12 @@ download_wp() {
 # Sets up WordPress using wp config create (if a wp-config file doesn't already exist) and wp core install. Expects that WordPress is already downloaded.
 setup_wp() {
 	# Initialize variables with default values
-	TMPDIR="/tmp"
-	DB_NAME="wordpress_test"
-	DB_USER="root"
-	DB_PASS=""
-	DB_HOST="127.0.0.1"
-	WP_VERSION=${WP_VERSION:-latest}
+	local TMPDIR="/tmp"
+	local DB_NAME="wordpress_test"
+	local DB_USER="root"
+	local DB_PASS=""
+	local DB_HOST="127.0.0.1"
+	local WP_VERSION=${WP_VERSION:-latest}
 
 	# Parse command-line arguments
 	for i in "$@"; do
@@ -95,11 +95,11 @@ setup_wp() {
 # Sets up WordPress nightly version. Uses setup_wp to get WordPress, then installs Gutenberg on the recently installed WordPress site.
 setup_wp_nightly() {
 	# Initialize variables with default values
-	TMPDIR="/tmp"
-	DB_NAME="wordpress_test"
-	DB_USER="root"
-	DB_PASS=""
-	DB_HOST="127.0.0.1"
+	local TMPDIR="/tmp"
+	local DB_NAME="wordpress_test"
+	local DB_USER="root"
+	local DB_PASS=""
+	local DB_HOST="127.0.0.1"
 
 	# Parse command-line arguments
 	for i in "$@"; do
@@ -138,8 +138,8 @@ setup_wp_nightly() {
 
 # Gets the WordPress version number from the JSON file. If the version is "latest", it will get the latest version from the JSON file. If the version is "nightly", it will return "trunk".
 get_wp_version_num() {
-	WP_VERSION="latest"
-	TMPDIR="/tmp/wp-latest.json"
+	local WP_VERSION="latest"
+	local TMPDIR="/tmp/wp-latest.json"
 
 	for i in "$@"; do
 		case $i in
@@ -249,10 +249,10 @@ install_db() {
 
 # Deletes all the WordPress files so we can make another pass with a different version. Resets the database to an empty db (but does not drop it).
 cleanup() {
-	TMPDIR=${1:-"/tmp"}
-	WPDIR=${2:-"$TMPDIR/wordpress"}
-	WP_TESTS_DIR=${3:-"$TMPDIR/wordpress-tests-lib"}
-	WP_VERSION_JSON=${4:-"$TMPDIR/wp-latest.json"}
+	local TMPDIR=${1:-"/tmp"}
+	local WPDIR=${2:-"$TMPDIR/wordpress"}
+	local WP_TESTS_DIR=${3:-"$TMPDIR/wordpress-tests-lib"}
+	local WP_VERSION_JSON=${4:-"$TMPDIR/wp-latest.json"}
 
 	wp db reset --yes --path="$WPDIR"
 	rm -rf "$WPDIR"
