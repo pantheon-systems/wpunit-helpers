@@ -26,13 +26,17 @@
         "class": "Pantheon\\WPUnitHelpers\\Plugin"
     },
     "scripts": {
-        "shellcheck": "find bin/ -name \"*.sh\" | grep -v \"install-wp-tests.sh\" | xargs shellcheck",
+        "shellcheck": [
+            "shellcheck bin/*",
+            "shellcheck .github/workflows/bin/*"
+        ],
         "phpcs": "phpcs --standard=PSR2 src/",
         "phplint": "find src/ -name '*.php' -exec php -l {} \\;",
         "lint": [
             "@shellcheck",
             "@phpcs",
             "@phplint"
-        ]
+        ],
+        "phpunit": "echo 'Nothing to see here.'"
     }
 }

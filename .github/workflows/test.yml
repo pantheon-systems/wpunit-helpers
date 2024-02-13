@@ -1,10 +1,28 @@
-name: Test Plugin
+name: Test
 on: [pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    services:
+      mariadb:
+        image: mariadb:10.6    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Start MySQL
+        run: |
+          sudo systemctl start mysql
+          # Validate that MySQL is running
+          sudo systemctl status mysql
+          # Connect to MySQL to test auth.
+          mysql -e "SELECT 1" -uroot -proot
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp      
       - name: Setup barebones project
         run: |
           mkdir test_proj && cd test_proj
@@ -13,10 +31,18 @@ jobs:
           composer config allow-plugins.pantheon-systems/wpunit-helpers true
           composer require --dev pantheon-systems/wpunit-helpers:dev-${{ github.head_ref }}
       - name: Validate that bin files were copied
-        run: |
-          cd ${{ github.workspace }}/test_proj
-          test -d bin || (echo "❌ bin directory not found" >&2 && exit 1)
-          test -f bin/install-wp-tests.sh || (echo "❌ bin/install-wp-tests.sh not found" >&2 && exit 1)
-          test -f bin/install-local-tests.sh || (echo "❌ bin/install-local-tests.sh not found" >&2 && exit 1)
-          test -f bin/phpunit-test.sh || (echo "❌ bin/phpunit-test.sh not found" >&2 && exit 1)
-          echo "✅ All bin files found"
+        env:
+          TEST_PROJECT_DIR: ${{ github.workspace }}/test_proj
+        run: ${{ github.workspace }}/.github/workflows/bin/validate-bin-files.sh
+      - name: Run local install
+        shell: bash
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+          DB_NAME: wordpress_test
+          DB_USER: root
+          DB_PASS: root
+          DB_HOST: 127.0.0.1
+        run: ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
+      - name: Run PHPUnit Test Install
+        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
+
