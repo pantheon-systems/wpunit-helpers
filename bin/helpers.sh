@@ -217,7 +217,6 @@ install_test_suite() {
 
 # Installs the WordPress database. Uses the passed arguments to create a database.
 install_db() {
-	set -x
 	local DB_NAME=${1:-"wordpress_test"}
 	local DB_USER=${2:-"root"}
 	local DB_PASS=${3:-""}
