@@ -49,7 +49,7 @@ done
 echo "Installing local tests into ${TMPDIR}"
 echo "Using WordPress version: ${WP_VERSION}"
 
-local ARGS=(--version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
+ARGS=(--version="$WP_VERSION" --tmpdir="$TMPDIR" --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST")
 
 if [ -n "$SKIP_DB" ]; then
   ARGS=("${ARGS[@]}" --skip-db=true)
