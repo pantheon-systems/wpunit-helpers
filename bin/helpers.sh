@@ -17,7 +17,8 @@ ensure_svn_installed() {
 	if ! which svn &> /dev/null; then
 		echo "svn is not installed. Installing..."
 		if which apt-get &> /dev/null; then
-			sudo apt-get update && sudo apt-get install -y subversion
+			sudo apt-get update
+			sudo apt-get install -y subversion
 		elif which yum &> /dev/null; then
 			sudo yum install -y subversion
 		elif which brew &> /dev/null; then
