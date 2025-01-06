@@ -2,14 +2,31 @@
 
 # Arbitrary download function that uses wget or curl depending on what's available.
 download() {
-    if which curl &> /dev/null; then  
-        curl -s "$1" > "$2";  
-    elif which wget &> /dev/null; then  
-        wget -nv -O "$2" "$1"  
-    else  
-        echo "Missing curl or wget" >&2  
-        exit 1  
-    fi  
+	if which curl &> /dev/null; then  
+		curl -s "$1" > "$2";  
+	elif which wget &> /dev/null; then  
+		wget -nv -O "$2" "$1"  
+	else  
+		echo "Missing curl or wget" >&2  
+		exit 1  
+	fi  
+}
+
+# Function to ensure svn is installed
+ensure_svn_installed() {
+	if ! which svn &> /dev/null; then
+		echo "svn is not installed. Installing..."
+		if which apt-get &> /dev/null; then
+			sudo apt-get update && sudo apt-get install -y subversion
+		elif which yum &> /dev/null; then
+			sudo yum install -y subversion
+		elif which brew &> /dev/null; then
+			brew install subversion
+		else
+			echo "Package manager not found. Please install svn manually."
+			exit 1
+		fi
+	fi
 }
 
 # Download WordPress with wp-cli. Always forces the download of files to overwrite existing ones.
@@ -194,6 +211,9 @@ install_test_suite() {
 	else
 		local ioption='-i'
 	fi
+
+	# Ensure svn is installed
+	ensure_svn_installed
 
 	# set up testing suite if it doesn't yet exist
 	if [ ! -d "$WP_TESTS_DIR" ]; then
