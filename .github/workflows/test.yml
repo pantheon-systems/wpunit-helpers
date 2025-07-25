@@ -45,7 +45,10 @@ jobs:
         run: ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
       - name: Run PHPUnit Test Install (skip nightly)
         run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --skip-nightly --tmpdir=${{ github.workspace }}/local_tests
+      
+      - name: Drop wordpress_test database
+        run: mysql -uroot -proot -e "DROP DATABASE IF EXISTS wordpress_test"
           
       - name: Run PHPUnit Test Install (with nightly)
-        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --skip-db --tmpdir=${{ github.workspace }}/local_tests
+        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
