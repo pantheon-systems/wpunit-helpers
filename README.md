@@ -45,6 +45,21 @@ On installation, the Composer plugin will copy the scripts into the `bin` direct
 }
 ```
 
+## Nightly WordPress tests
+
+By default, the `phpunit-test.sh` script will run tests against both the latest stable version of WordPress and the latest nightly build. This is useful for ensuring that your plugin or theme is compatible with the latest changes in WordPress core.
+
+If you would like to exclude the nightly tests, you can pass the `--skip-nightly` flag to the `phpunit-test.sh` script. This will only run tests against the latest stable version of WordPress.
+
+```json
+{
+	"scripts": {
+		"phpunit": "bin/phpunit-test.sh --skip-nightly",
+		"test": "@phpunit",
+	}
+}
+```
+
 ## Local Testing
 The `install-local-tests.sh` script is highly configurable to allow for a variety of local environment setups. Any parameter that could be passed into `install-wp-tests.sh` is set up as an optional flag in `install-local-tests.sh`. By default, the script with no flags will assume that a new database should be created as `root` with no password.
 
