@@ -24,18 +24,18 @@ main() {
 		fi
 	done
 
-	if $skip_db; then
-		bash_cmd="${bash_cmd_skipdb}"
-	fi
-
 	echo "🤔 Installing WP Unit tests..."
-	bash "$bash_cmd"
+	if $skip_db; then
+		"${install_cmd_skipdb[@]}"
+	else
+		"${install_cmd[@]}"
+	fi
 
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 1]: Running PHPUnit on Single Site"
 	composer phpunit --ansi
 
-	bash "$bash_cmd_skipdb"
+	"${install_cmd_skipdb[@]}"
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
 	WP_MULTISITE=1 composer phpunit --ansi
@@ -50,7 +50,7 @@ main() {
 	cleanup
 
 	echo "🤔 Installing WP Unit tests with WP nightly version..."
-	bash "${bash_cmd_skipdb}" --version=nightly
+	"${install_cmd_skipdb[@]}" --version=nightly
 
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 3]: Running PHPUnit on Single Site (Nightly WordPress)"
