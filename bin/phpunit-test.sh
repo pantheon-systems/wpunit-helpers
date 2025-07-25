@@ -7,6 +7,15 @@ source "$(dirname "$0")/helpers.sh"
 main() {
 	local DIRNAME
 	DIRNAME=$(dirname "$0")
+	local skip_nightly=false
+
+	# Super simple arg parsing
+	for arg in "$@"; do
+		if [[ "$arg" == "--skip-nightly" ]]; then
+			skip_nightly=true
+			break
+		fi
+	done
 
 	echo "🤔 Installing WP Unit tests..."
 	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root
@@ -19,6 +28,12 @@ main() {
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
 	WP_MULTISITE=1 composer phpunit --ansi
+
+	if $skip_nightly; then
+		echo "Skipping nightly WordPress tests..."
+		echo "Done! ✅"
+		return
+	fi
 
 	echo "🧹 Removing files before testing nightly WP..."
 	cleanup
@@ -37,4 +52,4 @@ main() {
 	echo "Done! ✅"
 }
 
-main
+main "$@"
