@@ -41,7 +41,7 @@ main() {
 	WP_MULTISITE=1 composer phpunit --ansi
 
 	if $skip_nightly; then
-		echo "Skipping nightly WordPress tests..."
+		echo "💨 Skipping nightly WordPress tests..."
 		echo "Done! ✅"
 		return
 	fi
