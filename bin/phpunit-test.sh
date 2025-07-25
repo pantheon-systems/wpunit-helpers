@@ -8,6 +8,7 @@ main() {
 	local DIRNAME
 	DIRNAME=$(dirname "$0")
 	local skip_nightly=false
+	local skip_db=false
 
 	# Super simple arg parsing
 	for arg in "$@"; do
@@ -15,10 +16,14 @@ main() {
 			skip_nightly=true
 			break
 		fi
+		if [[ "$arg" == "--skip-db" ]]; then
+			skip_db=true
+			break
+		fi
 	done
 
 	echo "🤔 Installing WP Unit tests..."
-	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root
+	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --skip-db="$skip_db"
 
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 1]: Running PHPUnit on Single Site"
