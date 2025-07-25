@@ -9,8 +9,8 @@ main() {
 	DIRNAME=$(dirname "$0")
 	local skip_nightly=false
 	local skip_db=false
-	local bash_cmd="${DIRNAME}/install-wp-tests.sh --dbpass=root"
-	local bash_cmd_skipdb="${bash_cmd} --skip-db=true"
+	local install_cmd=("bash" "${DIRNAME}/install-wp-tests.sh" "--dbpass=root")
+	local install_cmd_skipdb=("${install_cmd[@]}" "--skip-db=true")
 
 	# Super simple arg parsing
 	for arg in "$@"; do
