@@ -85,3 +85,6 @@ This flag will set the version of WordPress to be installed. The default value i
 
 #### `--tmpdir`
 This flag will set the temporary directory to be used for the WordPress installation. The default value is `/tmp`.
+
+### `--skip-nightly`
+This flag will skip the installation of the latest nightly build of WordPress. This is useful if you only want to run tests against the latest stable version of WordPress.
