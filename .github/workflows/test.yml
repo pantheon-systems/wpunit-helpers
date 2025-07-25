@@ -44,5 +44,11 @@ jobs:
           DB_HOST: 127.0.0.1
         run: ${{ github.workspace }}/.github/workflows/bin/run-local-tests.sh
       - name: Run PHPUnit Test Install
-        run: bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
+        run: |
+          # Run without nightly first.
+          echo "Running PHPUnit tests without nightly..."
+          bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --skip-nightly --tmpdir=${{ github.workspace }}/local_tests
+
+          echo "Running PHPUnit tests with nightly..."
+          bash ${{ github.workspace }}/test_proj/bin/phpunit-test.sh --tmpdir=${{ github.workspace }}/local_tests
 
