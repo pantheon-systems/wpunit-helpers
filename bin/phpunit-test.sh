@@ -6,7 +6,7 @@ source "$(dirname "$0")/helpers.sh"
 
 main() {
 	local DIRNAME
-	DIRNAME=$(dirname "$0")
+	DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 	local skip_nightly=false
 	local skip_db=false
 	local bash_cmd="${DIRNAME}/install-wp-tests.sh --dbpass=root"
