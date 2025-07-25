@@ -9,6 +9,8 @@ main() {
 	DIRNAME=$(dirname "$0")
 	local skip_nightly=false
 	local skip_db=false
+	local bash_cmd="${DIRNAME}/install-wp-tests.sh --dbpass=root"
+	local bash_cmd_skipdb="${bash_cmd} --skip-db=true"
 
 	# Super simple arg parsing
 	for arg in "$@"; do
@@ -22,14 +24,18 @@ main() {
 		fi
 	done
 
+	if $skip_db; then
+		bash_cmd="${bash_cmd_skipdb}"
+	fi
+
 	echo "🤔 Installing WP Unit tests..."
-	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --skip-db="$skip_db"
+	bash "$bash_cmd"
 
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 1]: Running PHPUnit on Single Site"
 	composer phpunit --ansi
 
-	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --skip-db=true
+	bash "$bash_cmd_skipdb"
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 2]: Running PHPUnit on Multisite"
 	WP_MULTISITE=1 composer phpunit --ansi
@@ -44,7 +50,7 @@ main() {
 	cleanup
 
 	echo "🤔 Installing WP Unit tests with WP nightly version..."
-	bash "${DIRNAME}/install-wp-tests.sh" --dbpass=root --version=nightly --skip-db=true
+	bash "${bash_cmd_skipdb}" --version=nightly
 
 	echo '------------------------------------------'
 	echo "🏃‍♂️ [Run 3]: Running PHPUnit on Single Site (Nightly WordPress)"
