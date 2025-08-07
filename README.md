@@ -45,13 +45,28 @@ On installation, the Composer plugin will copy the scripts into the `bin` direct
 }
 ```
 
+## Nightly WordPress tests
+
+By default, the `phpunit-test.sh` script will run tests against both the latest stable version of WordPress and the latest nightly build. This is useful for ensuring that your plugin or theme is compatible with the latest changes in WordPress core.
+
+If you would like to exclude the nightly tests, you can pass the `--skip-nightly` flag to the `phpunit-test.sh` script. This will only run tests against the latest stable version of WordPress.
+
+```json
+{
+	"scripts": {
+		"phpunit": "bin/phpunit-test.sh --skip-nightly",
+		"test": "@phpunit",
+	}
+}
+```
+
 ## Local Testing
 The `install-local-tests.sh` script is highly configurable to allow for a variety of local environment setups. Any parameter that could be passed into `install-wp-tests.sh` is set up as an optional flag in `install-local-tests.sh`. By default, the script with no flags will assume that a new database should be created as `root` with no password.
 
 ### Flags
 
 #### `--skip-db`
-If set and `true`, this flag will skip the database creation step. This is useful if you are using a local database that is already set up. This replaces the (now deprecated) `--no-db` flag.
+If set and `true`, this flag will skip the database creation step. This is useful if you are using a local database that is already set up. This replaces the (now deprecated) `--no-db` flag. This flag can also be passed to the `phpunit-test.sh` script to skip the database creation step when running tests.
 
 #### `--dbname`
 This flag will set the name of the database to be created. The default value is `wordpress_test`.
@@ -70,3 +85,6 @@ This flag will set the version of WordPress to be installed. The default value i
 
 #### `--tmpdir`
 This flag will set the temporary directory to be used for the WordPress installation. The default value is `/tmp`.
+
+### `--skip-nightly`
+This flag will skip the installation of the latest nightly build of WordPress. This is useful if you only want to run tests against the latest stable version of WordPress.
