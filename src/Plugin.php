@@ -87,6 +87,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     
         if (!$filesAreIdentical) {
             $io->write("Done copying files into /bin.");
+            $io->write("You may need to chmod +x the files in /bin to make them executable.");
             $io->write("You can now add the following to your composer.json file: \n $composerIncludes");
         } else {
             $io->write("/bin files are up to date");
