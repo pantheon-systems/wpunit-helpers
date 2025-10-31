@@ -292,12 +292,6 @@ SQL
 	fi
 
 	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
-	mysql "${EXTRA[@]}" <<SQL
-		ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';
-		FLUSH PRIVILEGES;
-SQL
-
-	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
 }
 
 # Deletes all the WordPress files so we can make another pass with a different version. Resets the database to an empty db (but does not drop it).
