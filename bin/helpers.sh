@@ -265,6 +265,20 @@ install_db() {
 		EXTRA=("${EXTRA[@]}" --password="$DB_PASS")
 	fi
 
+	# Wait for the database to be ready using the provided credentials.
+	echo "Waiting for database connection..."
+	until mysqladmin ping "${EXTRA[@]}" --silent; do
+		sleep 1
+	done
+
+	# Configure the 'root' user to use the specified password ($DB_PASS)
+	# This is necessary for modern MariaDB/MySQL versions where the default root user requires a password.
+	echo "Configuring 'root'@'localhost' password to match DB_PASS..."
+	mysql "${EXTRA[@]}" <<SQL
+		ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';
+		FLUSH PRIVILEGES;
+SQL
+
 	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
 }
 
