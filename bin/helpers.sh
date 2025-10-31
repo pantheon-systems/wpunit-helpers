@@ -271,8 +271,16 @@ install_db() {
 	local RETRY_COUNT=0
 	until mysqladmin ping "${EXTRA[@]}" --silent; do
 		sleep 1
+		RETRY_COUNT=$((RETRY_COUNT+1))
+		if [ "$RETRY_COUNT" -ge "$MAX_RETRIES" ]; then
+			echo "Unable to connect to database after $MAX_RETRIES attempts." >&2
+			exit 1
+		fi
+	done
+
 	# Configure the 'root' user to use the specified password ($DB_PASS)
 	# This is necessary for modern MariaDB/MySQL versions where the default root user requires a password.
+	echo "Configuring 'root'@'localhost' password to match DB_PASS..."
 	mysql "${EXTRA[@]}" <<SQL
 		ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';
 		FLUSH PRIVILEGES;
@@ -282,9 +290,8 @@ SQL
 	else
 		echo "Failed to configure 'root'@'localhost' password. Please check user existence and privileges." >&2
 	fi
-	# Configure the 'root' user to use the specified password ($DB_PASS)
-	# This is necessary for modern MariaDB/MySQL versions where the default root user requires a password.
-	echo "Configuring 'root'@'localhost' password to match DB_PASS..."
+
+	mysqladmin create "$DB_NAME" "${EXTRA[@]}"
 	mysql "${EXTRA[@]}" <<SQL
 		ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';
 		FLUSH PRIVILEGES;
