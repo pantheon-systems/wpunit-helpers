@@ -280,7 +280,6 @@ install_db() {
 
 	# Configure the 'root' user to use the specified password ($DB_PASS)
 	# This is necessary for modern MariaDB/MySQL versions where the default root user requires a password.
-	echo "Configuring 'root'@'localhost' password to match DB_PASS..."
 	if mysql "${EXTRA[@]}" <<SQL
 		ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';
 		FLUSH PRIVILEGES;
