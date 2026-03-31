@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - uses: pantheon-systems/action-autotag@1b99f88428c5cbd6f73005e4d684c6a22350f5ab # v1.0.3
+      - uses: pantheon-systems/action-autotag@638975f12971bbf94011847f13ded24d2dc092b8 # v0.1.13
         with:
           gh-token: ${{ github.token }}   
