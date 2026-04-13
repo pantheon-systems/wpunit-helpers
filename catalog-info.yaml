@@ -1,0 +1,12 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: wpunit-helpers
+  description: Unified scripts for installing and running automated WP Unit Tests.
+  annotations:
+    github.com/project-slug: pantheon-systems/wpunit-helpers
+spec:
+  type: service
+  lifecycle: production
+  owner: devrel
