@@ -24,12 +24,14 @@ jobs:
           chmod +x wp-cli.phar
           sudo mv wp-cli.phar /usr/local/bin/wp      
       - name: Setup barebones project
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           mkdir test_proj && cd test_proj
           composer init --name test/test --no-interaction --type=library --stability=dev
           composer config repositories.wpunit-helpers '{"type": "vcs", "url": "https://github.com/pantheon-systems/wpunit-helpers.git"}'
           composer config allow-plugins.pantheon-systems/wpunit-helpers true
-          composer require --dev pantheon-systems/wpunit-helpers:dev-${{ github.head_ref }}
+          composer require --dev pantheon-systems/wpunit-helpers:dev-$HEAD_REF
       - name: Validate that bin files were copied
         env:
           TEST_PROJECT_DIR: ${{ github.workspace }}/test_proj
