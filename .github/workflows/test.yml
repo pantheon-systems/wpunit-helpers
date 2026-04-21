@@ -4,8 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      actions: write
+      contents: read
     services:
       mariadb:
         image: mariadb:10.6    
