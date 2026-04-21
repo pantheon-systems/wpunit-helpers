@@ -34,7 +34,7 @@ jobs:
           composer require --dev pantheon-systems/wpunit-helpers:dev-$HEAD_REF
       - name: Validate that bin files were copied
         env:
-          TEST_PROJECT_DIR: ${{ github.workspace }}/test_proj
+          TEST_PROJECT_DIRECTORY: ${{ github.workspace }}/test_proj
         run: ${{ github.workspace }}/.github/workflows/bin/validate-bin-files.sh
       - name: Run local install
         shell: bash
