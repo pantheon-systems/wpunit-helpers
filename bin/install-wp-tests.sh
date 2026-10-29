@@ -9,7 +9,7 @@ main() {
 	local TMPDIR="/tmp"
 	local DB_NAME="wordpress_test"
 	local DB_USER="root"
-	local DB_PASS=""
+	local DB_PASS="root"
 	local DB_HOST="127.0.0.1"
 	local WP_VERSION=${WP_VERSION:-latest}
 	local SKIP_DB=""
